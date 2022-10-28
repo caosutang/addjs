@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Báo giá Đông Phương</title>
+  </head>
+  <body>
+    <div class="container-xl">
+      <h1
+        class="text-center mb-3 mt-5 text-center"
+        style="font-weight: bold; color: #3e896a"
+      >
+        Form báo giá
+      </h1>
+
+      <div class="row" style="position: relative">
+        <div
+          class="form-info col-md-3 mt-3"
+          style="border-right: 1px solid rgb(185, 185, 185)"
+        >
+          <h4 class="text-center mb-3" style="color: #588b76">
+            Nhập thông tin khách hàng
+          </h4>
+          <form class="row g-2">
+            <div class="form-floating mb-1 col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                placeholder="Name"
+              />
+              <label for="floatingInput">Tên khách hàng</label>
+            </div>
+            <div class="form-floating col-md-3">
+              <input
+                type="number"
+                class="form-control"
+                id="VAT"
+                placeholder="VAT"
+                value="0"
+              /><label for="VAT">VAT %</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input
+                type="text"
+                class="form-control"
+                id="company"
+                placeholder="company"
+              />
+              <label for="company">Tên công ty</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="address"
+              />
+              <label for="address">Địa chỉ</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input
+                type="email"
+                class="form-control"
+                id="mail"
+                placeholder="Mail"
+              />
+              <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                placeholder="Phone Number"
+              />
+              <label for="floatingInput">Số điện thoại</label>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <input
+                type="date"
+                placeholder="dd-mm-yyyy"
+                class="form-control"
+                id="datePicker"
+              />
+
+              <label for="floatingInput">Thời gian</label>
+            </div>
+          </form>
+        </div>
+        <div class="productorder col-md-9 table-responsive text-nowrap">
+          <table
+            class="table table-bordered caption-top"
+            id="dataTable"
+            name="table"
+          >
+            <caption class="text-center mb-3" style="color: #588b76">
+              <h4>Danh sách đặt hàng</h4>
+            </caption>
+            <thead class="table-light">
+              <tr class="d-flex">
+                <th style="width: 5%" class="text-center">#</th>
+                <th style="width: 20%" class="text-center">Kho</th>
+                <th style="width: 25%" class="text-center">Mã SKU</th>
+                <th style="width: 10%" class="text-center">Số lượng</th>
+                <th style="width: 15%" class="text-center">Giá bán</th>
+                <th style="width: 10%" class="text-center">Giá 1</th>
+                <th style="width: 10%" class="text-center">Giá 2</th>
+                <th style="display: none">Mô tả sản phẩm</th>
+                <th style="width: 10%" class="text-center">Xóa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="d-flex">
+                <td style="width: 5%">1</td>
+                <td style="width: 20%">
+                  <input type="text" list="warehouse" id=""kho""
+                  onchange="selectkho(this)" style="width:100%;"/>
+                  <datalist id="warehouse">
+                    <option data-value="DP" value="Đông Phương"></option>
+                    <option data-value="CNDP" value="CN Đông Phương"></option>
+                    <option data-value="TT" value="Trường Thịnh"></option>
+                    <option data-value="TP" value="Thành Phát"></option>
+                  </datalist>
+                </td>
+                <td style="width: 25%">
+                  <input
+                    type="text"
+                    id="sku"
+                    onchange="selectPro(this)"
+                    style="width: 100%"
+                  />
+                </td>
+                <td style="width: 10%">
+                  <input type="number" id="quantity" style="width: 100%" />
+                </td>
+                <td style="width: 15%">
+                  <input type="number" id="price" style="width: 100%" />
+                </td>
+                <td id="price1" style="width: 10%" class="text-center"></td>
+                <td id="price2" style="width: 10%" class="text-center"></td>
+                <td id="description" style="display: none"></td>
+                <td style="width: 10%" class="text-center">
+                  <input
+                    type="button"
+                    name="deleteItem"
+                    value="X"
+                    onclick="deleteRow(this)"
+                    style="width: 80%"
+                    class="btn btn-danger"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="control mt-5 text-center">
+          <button type="button" class="btn btn-info" onclick="printPdf()">
+            Xuất file pdf
+          </button>
+          <button
+            type="button"
+            class="btn btn-warning"
+            onclick="updateQuotation()"
+          >
+            Cập nhập
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="addRow('dataTable')"
+          >
+            Thêm sản phẩm
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            onclick="deleteTable('dataTable')"
+          >
+            Xóa
+          </button>
+        </div>
+        <div style="top: 120rem; position: absolute" class="text-center">
+          <button type="button" class="btn btn-danger" onclick="backForm('')">
+            Trờ về form
+          </button>
+        </div>
+        <div
+          id="template"
+          class="mt-5 mb-5 p-5"
+          style="
+            border: 1px solid #000;
+            position: absolute;
+            top: 123rem;
+            width: 100%;
+          "
+        >
+          <div class="info-company text-center mb-4 position-relative">
+            <img
+              src="logo.png"
+              alt="logo"
+              srcset=""
+              class="position-absolute"
+              style="left: 0; top: 0"
+            />
+            <p
+              class="position-absolute"
+              style="
+                opacity: 0.3;
+                font-size: 90px;
+                font-family: serif;
+                rotate: 35deg;
+                top: 420px;
+                left: 70px;
+              "
+            >
+              ĐIỆN KHÍ ĐÔNG PHƯƠNG
+            </p>
+            <h4>
+              ĐIỆN KHÍ ĐÔNG PHƯƠNG
+              <br />
+              CHUYÊN CUNG CẤP THIẾT BỊ ĐIỆN VÀ KHÍ NÉN
+              <br />
+              234/13/34 TTH07, P.Tân Thới Hiệp, Quận 12, TP Hồ Chí Minh
+              <br />
+              Hotline :0909.106477
+              <br />
+            </h4>
+          </div>
+
+          <div class="info-user row g-2 mb-3 mt-2">
+            <div class="col-8">
+              ATTN: <span id="quotation_user"></span> <br />
+              Công ty: <span id="quotation_company"></span> <br />
+              Địa chỉ: <span id="quotation_address"></span> <br />
+              Tel khách hàng: <span id="quotation_phone"></span> <br />
+              Email khách hàng: <span id="quotation_mail"></span><br />
+            </div>
+            <div class="col-4">
+              Date: <span id="quotation_datetime"></span> <br />
+              From: Ms. Nhi (0936553170) <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mr. Dieu
+              (0909106477)<br />
+              Page: 1 <br />
+              Email: Huynhnhilb@gmail.com <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Diendongphuongvn@gmail.com <br />
+            </div>
+          </div>
+          <p>
+            Kính gửi: Quý khách hàng
+            <br />
+            Chúng tôi chân thành cám ơn sự quan tâm của Quý Công ty đến sản phẩm
+            của ĐÔNG PHƯƠNG
+            <br />
+            Sau đây là bảng chào giá theo yêu cầu của Quý khách hàng:
+          </p>
+
+          <h3 class="text-center mb-3">Bảng chào giá</h3>
+          <div class="table-fixed">
+            <table class="table table-bordered" style="border: 1px solid #000">
+              <thead>
+                <tr
+                  class="text-center align-middle"
+                  style="background-color: #f2ff89; color: #2308b7"
+                >
+                  <th>No.</th>
+                  <th>Diễn giải</th>
+                  <th>Mã SP</th>
+                  <th>Nhãn hiệu/ Xuất xứ</th>
+                  <th>Đơn vị tính</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá (VND)</th>
+                  <th>Thành tiền (VND)</th>
+                </tr>
+              </thead>
+              <tbody id="quotation_row" class="align-middle"></tbody>
+              <tfoot class="text-end" style="color: #2308b7">
+                <tr>
+                  <th
+                    style="
+                      border-left: 1px solid white;
+                      border-bottom: 1px solid white;
+                    "
+                    colspan="5"
+                  ></th>
+                  <th colspan="2"><strong>Thành tiền:</strong></th>
+                  <th id="quotation_prosum"></th>
+                </tr>
+                <tr>
+                  <th
+                    style="
+                      border-left: 1px solid white;
+                      border-bottom: 1px solid white;
+                    "
+                    colspan="5"
+                  ></th>
+                  <th colspan="2">
+                    <strong>VAT <span id="quotation_vat"></span>%</strong>:
+                  </th>
+                  <th id="quotation_vatprice"></th>
+                </tr>
+                <tr>
+                  <th
+                    style="
+                      border-left: 1px solid white;
+                      border-bottom: 1px solid white;
+                    "
+                    colspan="5"
+                  ></th>
+                  <th colspan="2"><strong>Tổng tiền</strong>:</th>
+                  <th id="quotation_sum"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <ol>
+            <li>
+              <b>Phương thức giao hàng:</b>
+              <ul>
+                <li>Thời gian : HÀNG CÓ SẴN</li>
+                <li>Địa điểm giao hàng: TẠI KHO ĐÔNG PHƯƠNG</li>
+              </ul>
+            </li>
+            <li>
+              <b>Phương thức thanh toán:</b> Thanh toán bằng tiền mặt hoặc
+              chuyển khoản
+              <ul>
+                <li>Thanh toán 100% truoc khi giao hàng 7 ngày.</li>
+                <li>
+                  Thanh toán 40% tạm ứng, 60% còn lại trước khi giao hàng đối
+                  với hàng không có sẵn.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>Thời hạn báo giá</b>
+              <ul>
+                <li>Bảng báo giá có thời hạn 07 ngày.</li>
+                <li>
+                  Chúng tôi hi vọng bảng chào giá trên sẽ làm hài lòng Quý khách
+                  và mong nhận được sự ủng hộ của Quý khách.
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <div
+            class="d-flex justify-content-around"
+            style="padding-bottom: 8rem"
+          >
+            <p><strong>XÁC NHẬN ĐẶT HÀNG </strong></p>
+            <p><strong>ĐƠN VỊ BÁN HÀNG</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+      integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript" src="product.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "file_bao_gia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "product.js",
+  "scripts": {
+    "run": "node index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
