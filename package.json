@@ -4,7 +4,7 @@
   "description": "",
   "main": "product.js",
   "scripts": {
-    "run": "node index.html"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
