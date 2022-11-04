@@ -148,8 +148,12 @@ function deleteTable() {
 
 function createRowTable(element, list) {
   tableText = `<tr class="text-center">`;
-  list.forEach((ele) => {
-    tableText += `<td> ${ele} </td>`;
+  list.forEach((ele, i) => {
+    if (i == 1) {
+      tableText += `<td class="text-start"> ${ele} </td>`;
+    } else {
+      tableText += `<td> ${ele} </td>`;
+    }
   });
   tableText += `</tr>`;
   element.insertAdjacentHTML("beforeend", tableText);
@@ -208,18 +212,18 @@ function updateQuotation() {
   );
 }
 
-function printPdf() {
-  const ele = document.getElementById("template");
-  var opt = {
-    jsPDF: {
-      unit: "in",
-      scale: 0.2,
-      format: "letter",
-      orientation: "portrait",
-    },
-  };
-  html2pdf().from(ele).toImg().save();
-}
+// function printPdf() {
+//   const ele = document.getElementById("template");
+//   var opt = {
+//     jsPDF: {
+//       unit: "in",
+//       scale: 0.2,
+//       format: "letter",
+//       orientation: "portrait",
+//     },
+//   };
+//   html2pdf().from(ele).toImg().save();
+// }
 
 function backForm() {
   window.scrollTo(0, 0);
